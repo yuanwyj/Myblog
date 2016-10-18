@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <header>
+    	<h1><%= title %></h1>
+        <% if(!user) { %>
+            <div id="user">
+                <p>
+                    <a href="/login">登陆</a>
+                    <a href="/register">注册</a>
+                </p>               
+            </div>
+        <% } else { %>
+            <div id="user">
+                <p>
+                    <a href="#"><%= user.username %></a>
+                    <a href="/logout">安全退出</a>
+                </p>
+            </div>
+        <% } %>
+    </header>
+    <div id="container">
+    	<nav>
+    		<ul>
+    			<li><a href="/login">登陆</a></li>
+    			<li><a href="/register">注册</a></li>
+    			<li><a href="#">发博</a></li>
+    		</ul>
+    	</nav>
+    </div>
+    
+    </body>
+</html>
