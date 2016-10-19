@@ -7,7 +7,22 @@ var router = express.Router();
 
 
 router.get('/', function (req, res) {
-    res.render('index', { user : req.user,title:'My blog' });
+    // res.render('index', { user : req.user,title:'My blog' });
+    if (req.user) {
+
+        Blog.find({author: req.user},function(err,docs){
+            if(!err) {
+                console.log(docs);
+                res.render('index', { user : req.user,title:'My blog',blog: docs, error: req.flash('error')});
+            } else {
+                console.log(err);
+                res.render('index', {user : req.user, title: 'My blog',blog: docs});
+            }
+        });
+    } else {
+
+        res.render('index', { user : req.user, error: req.flash('error'),title:'My blog' });
+    }
 
 });
 

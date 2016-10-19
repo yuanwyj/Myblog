@@ -1,0 +1,86 @@
+        body {
+            padding:30px 50px;
+        }
+        .user-header {
+            text-align: right;
+        }
+        .user-header a {
+            margin-right: 20px;
+        }
+        .page-header h1 {
+            font-size: 62px;
+        }
+        .span3 {
+            background-color: rgba(0,0,0,0.06);
+            border-radius: 5px;
+            height: 600px;
+        }
+        .span9 {
+            background-color: rgba(238, 238, 238, 0.57);
+            height: 600px;
+            border-radius: 5px;
+
+        }
+        .container-fluid {
+            padding: 0;
+        }
+        
+.pop-blog h3 {
+    color: #333;
+    font-size: 160%;
+    margin-bottom: 4px;
+    padding-bottom: 0;
+    margin-top: 0;
+    padding-top: 0;
+    font-weight: 700;
+    background-color: rgba(21, 177, 255, 0.59);
+}
+        .pop-blog ul {
+    
+        }
+.pop-blog ul li {
+    height: 47px;
+    font-size: 14px;
+    border: 1px solid rgba(222, 222, 222, 0.52);
+    background-color: #FFF;
+    line-height: 39px;
+}   
+        .pop-blog ul li a {
+            margin-left: 18px;
+        }
+        .pop-blog ul li p {
+            display: inline;
+            float: right;
+            margin-right: 5px;
+        }
+        .span9 .span9 {
+            height: 600px;
+            background-color: aliceblue;
+        }
+        footer {
+            text-align: center;
+        }
+        .blog {
+            padding: 30px;
+        }
+        .blog h3 {
+            font-size: 35.5px;
+            border-bottom: 1px solid #DEDEDE;
+            padding-bottom: 10px;
+        }
+        .blog a {
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        .blog p {
+           
+        }
+        .blog ul li {
+            height: 70px;
+            background-color: #fff;
+            border-radius: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+        .blog ul span {
+            margin-left: 20px;
+        }
