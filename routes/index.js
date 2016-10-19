@@ -1,11 +1,14 @@
 var express = require('express');
 var passport = require('passport');
-var Account = require('../models/account');
+var User = require('../models/user');
+var Comment = require('../models/comment');
+var Blog = require('../models/blog')
 var router = express.Router();
 
 
 router.get('/', function (req, res) {
-    res.render('index', { user : req.user,title:'主页' });
+    res.render('index', { user : req.user,title:'My blog' });
+
 });
 
 router.get('/register', function(req, res) {
@@ -13,7 +16,7 @@ router.get('/register', function(req, res) {
 });
 
 router.post('/register', function(req, res, next) {
-    Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+    User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
         if (err) {
           return res.render('register', { error : err.message ,title:'注册',user : req.user});
         }

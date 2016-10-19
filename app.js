@@ -39,10 +39,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // passport config
-var Account = require('./models/account');
-passport.use(new LocalStrategy(Account.authenticate()));
-passport.serializeUser(Account.serializeUser());
-passport.deserializeUser(Account.deserializeUser());
+var User = require('./models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // mongoose
 mongoose.connect('mongodb://localhost/passport_local_mongoose_express4');

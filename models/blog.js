@@ -8,7 +8,7 @@ var BlogSchema = new Schema({
 	author: {type: Schema.Types.ObjectId,ref:'User'}, //作者，定义外键
 	time : Date, //博客发布时间
 	recommend: Number,   //博客被赞次数
-	comment: String			//评论
+	comment: {type: Schema.Types.ObjectId,ref:'Comment'}			//评论
 });
 
 

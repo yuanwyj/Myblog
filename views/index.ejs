@@ -1,37 +1,103 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>主页</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="./stylesheets/bootstrap.min.css">
+    <style type="text/css">
+        body {
+            padding:30px 50px;
+        }
+        .user-header {
+            text-align: right;
+        }
+        .user-header a {
+            margin-right: 20px;
+        }
+        .page-header h1 {
+            font-size: 62px;
+        }
+        .span3 {
+            background-color: rgba(0,0,0,0.05);
+            border-radius: 5px;
+            height: 600px;
+        }
+        .span9 {
+            background-color: #ccc;
+            height: 200px;
+        }
+        .container-fluid {
+            padding: 0;
+        }
+        .pop-blog h3 {
+            color: #404040;
+            font-size: 160%;
+            margin-bottom: 4px;
+            padding-bottom: 0;
+            margin-top: 0;
+            padding-top: 0;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-left: 30px;
+        }
+        .pop-blog ul {
+            margin-left:30px;
+            margin-top: 10px;
+        }
+        .pop-blog ul li {
+            height: 30px;
+            font-size: 14px;
+        }
+        .pop-blog ul li p {
+            display: inline;
+            float: right;
+            margin-right: 5px;
+        }
+    </style>
   </head>
   <body>
-    <header>
-    	<h1><%= title %></h1>
-        <% if(!user) { %>
-            <div id="user">
+    <header >
+        <div class="page-header">
+            <h1><%= title %><small>It's a blog system writeten by nodejs</small></h1> 
+            <% if(!user) { %>
+            <div class="user-header">
                 <p>
                     <a href="/login">登陆</a>
                     <a href="/register">注册</a>
                 </p>               
             </div>
-        <% } else { %>
-            <div id="user">
+            <% } else { %>
+            <div class="user-header">
                 <p>
                     <a href="#"><%= user.username %></a>
                     <a href="/logout">安全退出</a>
                 </p>
             </div>
-        <% } %>
+            <% } %>
+        </div>   	
     </header>
-    <div id="container">
-    	<nav>
-    		<ul>
-    			<li><a href="/login">登陆</a></li>
-    			<li><a href="/register">注册</a></li>
-    			<li><a href="#">发博</a></li>
-    		</ul>
-    	</nav>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span3">
+            <!--Sidebar content-->
+                <div class="pop-blog">
+                    <h3 class="text-info">Hot blog</h3>
+                    <ul class="unstyled">
+                        <li class="inline"><a href="#">what is blog?</a><p>赞（10）</p></li>
+                        <li><a href="#">how to write blog?</a><p>赞（10）</p></li>
+                        <li><a href="#">what time can we read blog?</a><p>赞（10）</p></li>
+                        <li><a href="#">where to read blog?</a><p>赞（10）</p></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="span9">
+            <!--Body content-->
+                <% if(!user) { %>
+                    <div class=""></div>
+                <% } %>
+            </div>
+        </div>
     </div>
-    
+        <script src="./javascripts/jquery.min.js"></script>
     </body>
 </html>
