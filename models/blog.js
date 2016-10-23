@@ -1,6 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var User = require('./user.js');
 
+// var commentsSchema = new Schema({
+// 	author: String,
+// 	reply: String,
+// 	comment: String,
+// 	hidden: {type: Boolean, default:false},
+// 	date: {type: Date, default: Date.now()}
+// });
 
 var BlogSchema = new Schema({
 	title: {type: String, require: true},    //博客标题

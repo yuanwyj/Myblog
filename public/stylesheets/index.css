@@ -16,8 +16,8 @@
             height: 600px;
         }
         .span9 {
-            background-color: rgba(238, 238, 238, 0.57);
-            height: 600px;
+            background-color: rgba(255, 255, 255, 0.57);
+            height: auto;
             border-radius: 5px;
 
         }
@@ -26,7 +26,7 @@
         }
         
 .pop-blog h3 {
-    color: #333;
+    color: #fff;
     font-size: 160%;
     margin-bottom: 4px;
     padding-bottom: 0;
@@ -34,6 +34,7 @@
     padding-top: 0;
     font-weight: 700;
     background-color: rgba(21, 177, 255, 0.59);
+    padding-left: 17px;
 }
         .pop-blog ul {
     
@@ -54,11 +55,13 @@
             margin-right: 5px;
         }
         .span9 .span9 {
-            height: 600px;
+            height: auto;
             background-color: aliceblue;
+            min-height: 600px;
         }
         footer {
             text-align: center;
+            margin-top: 10px;
         }
         .blog {
             padding: 30px;
@@ -72,6 +75,11 @@
             font-size: 20px;
             margin-left: 10px;
         }
+        .blog li span a {
+            display: inline;
+            line-height: 30px;
+            font-size: 12px;
+        }
         .blog p {
            
         }
@@ -82,5 +90,134 @@
             border-bottom: 1px solid #ccc;
         }
         .blog ul span {
+            margin-left: 10px;
+            font-size: 12px;
+        }
+        .pop-blog ul li span {
+            display: inline;
+            margin-left: 10px;
+            float: right;
+            margin-right: 12px;
+        }
+        .li {
+            padding-top: 15px;
+        }
+        .form-search {
+            margin-top: 30px;
+            margin-left: 10px;
+        }
+        .form-search input {
+            width: 50%;
+        }
+        .top-nav {
+            background-color: #5bc0de;
+            height: 55px;
+        }
+        .nav {
+            padding: 9px;
+        }
+        .nav li {
             margin-left: 20px;
+        }
+        .nav>.disabled>a {
+            color: #fff;
+            font-size: 20px;
+        }
+        .top-nav ul li a:hover {
+            color: #DEDEDE;
+        }
+        .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 95;
+            width: 100% !important;
+            height: 1000px !important;
+            background: rgba(100, 100, 70, 0.41);;
+        }
+        .blog-form {
+            width: 840px;
+            height: 580px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -290px;
+            margin-left: -420px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            box-shadow: 0 0 80px 0 rgba(0,0,0,.3);
+            background-color: #ffffff;
+            z-index: 99;
+        }
+        .glyphicon {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            font-family: 'Glyphicons Halflings';
+            font-style: normal;
+            font-weight: 400;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .blog-form-header {
+            background-color: #08c;
+            color: #fff;
+            height: 50px;
+        }
+        .blog-form-header p {
+            display: inline;
+            padding: 33px;
+            line-height: 47px;
+            font-size: 18px;
+        }
+        #post-blog .blog-form-header a {
+            color: #fff;
+            float: right;
+            font-size: 18px;
+            margin-right: 24px;
+            line-height: 50px;
+        }
+        .blog-form-title {
+            width: 93%;
+            margin-top: 20px;
+            margin-left: 22px;
+        }
+        #post-blog form input {
+            height: 30px;
+        }
+        .edit-content textarea {
+            margin-left: 23px;
+            width: 93%;
+            height: 300px;
+        }
+        .nav {
+            margin-bottom: 0px;
+        }
+        .edit-content button {
+            float: right;
+            margin-right: 20px;
+        }
+        .alert {
+            width: 89%;
+            margin-left: 20px;
+            padding-bottom: 9px;
+            color: rgba(236, 44, 44, 0.71);
+        }
+        #errorTip {
+            margin-bottom: 9px;
+        }
+        .edit-btn ul li {
+            cursor: pointer;
+        }
+        .right-top {
+            height: 41px;
+            background-color: #6ecbf9;
+            color: #fff;
+        }
+        .right-top h3 {
+            margin: 0;
+            padding-left: 10px;
         }

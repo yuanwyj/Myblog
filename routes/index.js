@@ -10,18 +10,31 @@ router.get('/', function (req, res) {
     // res.render('index', { user : req.user,title:'My blog' });
     if (req.user) {
 
-        Blog.find({author: req.user},function(err,docs){
-            if(!err) {
-                console.log(docs);
-                res.render('index', { user : req.user,title:'My blog',blog: docs, error: req.flash('error')});
-            } else {
+       Blog.find({}).sort('-recommend').limit(5).exec((err, blogs) => { 
+            if (err) {
                 console.log(err);
-                res.render('index', {user : req.user, title: 'My blog',blog: docs});
+               
+            } else {
+                Blog.find({author: req.user._id}).sort('-time').exec((err,docs) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.render('index',{user :req.user, title: 'My blog', blog:docs, blogs: blogs});
+                    }
+                });
             }
         });
+
     } else {
 
-        res.render('index', { user : req.user, error: req.flash('error'),title:'My blog' });
+        Blog.find({}).sort('-recommend').limit(5).exec((err, docs) => {
+            console.log('---查找热门文章---------------------------------');      
+            if (err) {
+                console.log(err);
+            } else {
+                res.render('index', { user : req.user,title:'My blog', blogs:docs });
+            }
+        });     
     }
 
 });
@@ -69,6 +82,36 @@ router.get('/logout', function(req, res, next) {
         }
         res.redirect('/');
     });
+});
+
+router.post('/addblog',function(req,res,next) {
+    var time = new Date();
+    var title = req.body['title'];
+    var content = req.body['content'];
+
+    var blog = new Blog({
+    title: title,
+    content: content,    //博客内容
+    author: req.user, //作者，定义外键
+    time : time, //博客发布时间
+    recommend: 0,   //博客被赞次数
+    });
+    
+    blog.save(function(err, res) {
+        if (err) {
+            console.log("- - - - - - - - - - 博客发布失败 - - - - - - - - - - - - - - - - - - -");
+        }
+
+        console.log("- - - - - - - - - - 博客发布成功 - - - - - - - - - - - - - - - - - - - - -");  
+
+    });
+    req.session.save(function (err) {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
+
 });
 
 router.get('/ping', function(req, res){

@@ -3,7 +3,7 @@
   <head>
     <title>主页</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" type="text/css" href="./stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./stylesheets/index.css">
   </head>
   <body>
@@ -27,6 +27,41 @@
             <% } %>
         </div>   	
     </header>
+
+    <!-- 编辑blog模块 -->
+    <div id="post-blog" class="post-blog" style="display: none;">
+        <div class="mask"></div>
+        <div class="blog-form">
+            <div class="blog-form-header">
+                <p>编辑博客</p>
+                <a href="#" id="form-close">
+                    <span>关闭</span>               
+                </a>
+            </div>           
+            <form action="/addblog" method="post">
+                <input id="blog-title" type="text" name="title" placeholder="文章标题不能为空" class="blog-form-title" autofocus autocomplete="off">
+                <div class="edit">
+                    <div class="edit-btn"></div>
+                    <div class="edit-content">
+                        <div class="edit-btn">
+                            <ul class="nav nav-pills">
+                                <li><a id ="resetting">重置</a></li>
+                                <li><a id="center">居中</a></li>
+                                <li><a id="left">居左</a></li>
+                                <li><a id="right">居右</a></li>
+                            </ul>  
+                        </div>
+                         <div class="err-message">
+                            
+                        </div>
+                        <textarea class="form-control" rows="9" name="content"></textarea>
+                       
+                        <button id="issue" type="submit" class="btn btn-primary">发布</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
@@ -34,26 +69,41 @@
                 <div class="pop-blog">
                     <h3 class="text-info">Hot blog</h3>
                     <ul class="unstyled">
-                        <li><a href="#">what is blog?</a><p>赞（10）</p></li>
-                        <li><a href="#">how to write blog?</a><p>赞（10）</p></li>
-                        <li><a href="#">what time can we read blog?</a><p>赞（10）</p></li>
-                        <li><a href="#">where to read blog?</a><p>赞（10）</p></li>
+                    <% for(var i = 0; i < blogs.length; i++ ) { %>
+
+                        <li>
+                            <a href="#"><%= blogs[i].title %></a>
+                            <span class="zan">赞 <%= blogs[i].recommend %></span>
+                                
+                        </li>  
+                    <% } %>                         
                     </ul>
                 </div>
+
             </div>
             <div class="span9">
             <!--Body content-->
+
                 <% if(!user) { %>
                     <!-- If user is not login show this model  -->
                     <div class="row-fluid">
                         <div class="span9">
-                            <div class="chang-img">qwer</div>
-                            <div class="messge">Here to show some message</div>
+                            <div class="top-nav">
+                                <ul class="nav nav-pills">
+                                    <li class="disabled"><a href="#">首页</a></li>
+                                    <li class="disabled"><a href="#">个人主页</a></li>
+                                    <li class="disabled"><a href="#" id="issue-blog">发布博客</a></li>
+                                    <li class="disabled"><a href="#"></a></li>
+                                </ul>
+                            </div>
+
                         </div>
                         <div class="span3">
                             <!-- Here to search blog -->
-                            <input type="" name="">
-                            <label>Search</label>
+                            <form action="" method="post" class="form-search">
+                                <input type="text" class="input-medium" placeholder="find blog...">
+                                <button type="submit" class="btn">Search</button>
+                            </form>                                                                
                         </div>
                     </div>
 
@@ -61,46 +111,43 @@
                     <div class="my-blog container-fulid">
                         <div class="row-fluid">
                             <div class="span9">
-                                
+                                <div class="top-nav">
+                                    <ul class="nav nav-pills">
+
+                                        <li class="disabled"><a href="#">首页</a></li>
+                                        <li class="disabled"><a href="#">个人主页</a></li>
+                                        <li class="disabled"><a href="#" id="issue-blog">发布博客</a></li>
+                                        <li class="disabled"><a href="#"></a></li>
+
+                                    </ul>
+                                </div>
+                               
+
                                 <div class="blog">
-                                    <% if (locals.error.length > 0) { %> 
-                                    <div id="alt_warning" class="alert alert-warning"> 
-                                        <%= error %> 
-                                    </div> 
-                                    <% } %> 
+
                                     <h3>我的博客</h3>
                                     <ul class="unstyled">
+                                        <% for(var i = 0; i < blog.length; i++ ) { %>
+
                                         <li>
-                                            <a href="#"><%= blog[0].title %></a></br>
-                                            <span>我发布于<strong>2016/10/19</strong></span>
-                                            <span class="zan">赞 1000</span>
-                                
-                                        </li>                                        
-                                        <li>
-                                            <a href="#">blog titl</a></br>
-                                            <span>我发布于<strong>2016/10/19</strong></span>
-                                            <span class="zan">赞 1000</span>
-                                
-                                        </li>                                       
-                                        <li>
-                                            <a href="#">blog titl</a></br>
-                                            <span>我发布于<strong>2016/10/19</strong></span>
-                                            <span class="zan">赞 1000</span>
-                                
-                                        </li> 
-                                        <li>
-                                            <a href="#">blog titl</a></br>
-                                            <span>我发布于<strong>2016/10/19</strong></span>
-                                            <span class="zan">赞 1000</span>
-                                
-                                        </li> 
+                                            <div class="li">
+                                            <a href="#"><%= blog[i].title %></a></br>
+                                            <span>我发布于<strong><%= blog[i].time %></strong><a href="#">赞</a> <%= blog[i].recommend %></span>
+                                            </div>
+                                        </li>  
+                                        <% } %>                                      
                                     </ul>
 
                                 </div>
                             </div>
                             <div class="span3">
-                                <input type="" name="">
-                                <label>Search</label>                                
+                                <div class="right-top">
+                                    <h3>Search blog</h3>
+                                </div>
+                                <form action="" method="post" class="form-search">
+                                    <input type="text" class="input-medium" placeholder="find blog...">
+                                    <button type="submit" class="btn">Search</button>
+                                </form>                                                                         
                             </div>
                         </div>
                     </div>
@@ -111,6 +158,9 @@
     <footer>
         <p><small>&copy;Copyring All About Gaudi</small></p>
     </footer> 
-        <script src="./javascripts/jquery.min.js"></script>
+        <script src="./javascripts/jquery.min.js" type="text/javascript"></script>
+<!--         <script type="text/javascript" src="./javascripts/bootstrap.js"></script>        
+        <script type="text/javascript" src="./javascripts/bootstrap.min.js"></script> -->
+        <script src="./javascripts/index.js" ></script>        
     </body>
 </html>
