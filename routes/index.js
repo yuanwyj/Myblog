@@ -39,6 +39,16 @@ router.get('/', function (req, res) {
 
 });
 
+router.get('/blog',function(req,res,next) {
+    req.session.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        // res.redirect('/');
+    });
+    res.render('blog', { user : req.user,title:'Show blog' });
+});
+
 router.get('/register', function(req, res) {
     res.render('register', {user : req.user, error : req.flash('error'),title:'注册' });
 });
