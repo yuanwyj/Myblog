@@ -3,17 +3,26 @@
   <head>
     <title>主页</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./stylesheets/blog.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/blog.css">
   </head>
   <body>
     <header >
         <div class="page-header">
+            <% if(!user) { %>
+            <div class="user-header">
+                <p>
+                    <a href="/login">登陆</a>
+                    <a href="/register">注册</a>
+                </p>               
+            </div>
+            <% } else { %>
             <div class="user-header">
                 <p>
                     <a href="#"><%= user.username %></a>
                     <a href="/logout">安全退出</a>
                 </p>
             </div>
+            <% } %>
             <h1><%= title %><small>It's a blog system writeten by nodejs</small></h1>
         </div>   	
     </header>
@@ -22,66 +31,31 @@
         <!-- Display blog content. -->
         <div id="blog-content">
             <div id="blog-info">
-                <h3>this is blog title</h3>
-                <p class="muted">发布于2016/10/24</p>               
+                <h3><%= blog.title %></h3>
+                <p class="muted"><a href="#"><%= blog_user.username %></a>发布于<%= blog.time.getFullYear() %>/<%= blog.time.getMonth()+1 %>/<%= blog.time.getDate() %></p>               
             </div>
             <div id="content">
 
-                <p class="lead">这些年，曾高调过，曾低调过，也不高不低过，有人看我很谦虚，有人看我屌，其实，都是看心情，看心情的。。。
-
-我想汇总一下我的知识体系，身体又懒的动，只因大脑感觉要写完天都要亮好几回，若不写，这随谈又要谈什么呢？
-
-听说.NET界的架构师很少，其实是.NET的技术总监或CTO太少，毕竟是上层决定了下层的技术使用。
-
-在我这几年当总监的岁月里，拿到的Offer最高月薪也只有4W，这在Java界轻松就能突破的数字，在.NET界却不那么容易。
-
-因为上层公司都被Java占领了，中下层的公司很难开到这Level，很多到3-3.5就止步了，更小的到2.5就止步了。
-
-因此，从现实出发，混到总监的，有些也不在乎技术了，也没有技术情节和忠诚感，转个技术方向突破薪资才是硬道理。
-
-生态圈的良性循环，还是得靠占据总监位置的同志们，坚持。。。
-
-而且，大量的.NET，必须突破自己，靠架上面的内容，其实只是个大概的节点情况，太多细节点的过程，来不及细说，全面汇总成以下几点：
-
-1：大量的编码实战。
-
-2：开发自己的作品。
-
-3：学会分享。
-
-4：学会低调，知识归零。
-关于看书：
-
-这么多年，我很少看技术类的书，因为人的特征本各不相同，我不善于记忆，只能通过大量的实战来形成条件反射。
-
-另外，从实战到=》互联网的文章，有目的性的补充知识，更加容易被吸引。
-
-所以，看书和看文章，其实本质都是在学习，只是我是通过实战驱动去补充知识，而不是单纯的看书，然后选择被遗忘。               
-                </p>
+                <p class="lead"><%= blog.content %></p>
             </div>
         </div>
         <!-- List of comments. -->
         <div id="comment">
-            <form class="comment" action="/comment" method="post">
+            <form class="comment" action="/comment/<%- blog._id %>" method="post">
                 <label class="muted">说点什么吧~~</label>
                 <textarea class="form-control" rows="3" name="comment"></textarea></br>
                 <button type="submit" class="btn">发布</button>
             </form>
             <div class="list">
-                <ul class="unstyled">                  
+                <ul class="unstyled">                   
+                    <% for(var i = 0; i < comments.length; i++ ) { %>
+                                        
                     <li>
-                        <a href="#"><%= user.username %>:</a><br>
-                        <p><span class="comments">在120年前,1892年11月16日,一位具有世界影响的文化巨人诞生了!早年,他以其才情横溢、大气磅礴的诗篇震撼文坛,被称为“最能代表五四狂飙精神”的诗人。建国后,他</span></p>
-                        <span class="comment-time">发布于 2016/10/24</span><a href="#">赞</a><span>100</span>
-                    </li>                     <li>
-                        <a href="#"><%= user.username %>:</a><br>
-                        <p><span class="comments">大部分常用的表单控件、文本输入控件。包括所有HTML5所支持的：text、password、datetime、 datetime-local、date、</span></p>
-                        <span class="comment-time">发布于 2016/10/24</span><a href="#">赞</a><span>100</span>
-                    </li>                     <li>
-                        <a href="#"><%= user.username %>:</a><br>
-                        <p><span class="comments">大部分常用的表单控件、文本输入控件。包括所有HTML5所支持的：text、password、datetime、 datetime-local、date、</span></p>
-                        <span class="comment-time">发布于 2016/10/24</span><a href="#">赞</a><span>100</span>
-                    </li>                 
+                        <a href="#"><%= comments[i].author.username %>:</a><br>
+                        <p><span class="comments"><%= comments[i].content %></span></p>
+                        <span class="comment-time">发布于 <%= comments[i].time.getFullYear() %>/<%= comments[i].time.getMonth()+1 %>/<%= comments[i].time.getDate() %></span><a href="#">赞</a><span><%= comments.recommend %></span>    
+                    </li>  
+                    <% } %>                                   
                 </ul>               
             </div>
         </div>
@@ -89,7 +63,7 @@
     <footer>
         <p><small>&copy;Copyring All About Gaudi</small></p>
     </footer> 
-        <script src="./javascripts/jquery.min.js" type="text/javascript"></script>
-        <script src="./javascripts/index.js" ></script>        
+        <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
+        <script src="/javascripts/index.js" ></script>        
     </body>
 </html>

@@ -79,6 +79,11 @@ body {
 .muted {
     color: #fff;
 }
+.muted a {
+    color: #f89406;
+    font-size: 19px;
+    margin-right: 8px;
+}
 .list {
 	background-color: #fff;
 	margin-top: 50px;

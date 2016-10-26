@@ -39,14 +39,70 @@ router.get('/', function (req, res) {
 
 });
 
-router.get('/blog',function(req,res,next) {
+router.get('/blog/:blogId',function(req,res,next) {
+    req.session.save(function (err) {
+        if (err) {
+            return next(err);
+
+        }
+    });   
+
+    Blog.findById(req.params.blogId).exec((err,blg) => {
+        console.log('---查看博客---------------------------------');   
+        if (err) {
+            console.log(err);
+            return next(err);
+        } else {
+            
+            console.log(blg.author);
+            User.findById(blg.author).exec((err,blog_user) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    Comment.find({blog:req.params.blogId}).populate('author').exec((err,comments) =>{
+                        if (err) {
+                            console.log(err);                 
+                        } else {
+                            console.log("+++++++++",comments[0].author.username);
+                            res.render('blog', { user : req.user,title:'Show blog',blog :blg,blog_user:blog_user,comments:comments });
+
+                        }
+                    });
+                }
+            });
+            
+        }
+    });   
+});
+
+router.post('/comment/:blogId',function(req,res,next) {
+    var time = new Date();
+    var content = req.body['comment'];
+
+    var comment = new Comment({
+        author: req.user,
+        content: content,
+        blog: req.params.blogId,
+        time: time,
+        recommend: 0
+    }); 
+
+    comment.save(function(err,res) {
+        if (err) {
+            console.log("- - - - -评论发布失败 - - - - - - - - - -  - - - -");
+            console.log(err);
+        } 
+        console.log("- - - - - 评论发布成功 - - - - - - - - - - - - - -")
+   
+    });
+
     req.session.save(function (err) {
         if (err) {
             return next(err);
         }
-        // res.redirect('/');
+        res.redirect('/blog/'+ req.params.blogId);
     });
-    res.render('blog', { user : req.user,title:'Show blog' });
+
 });
 
 router.get('/register', function(req, res) {
@@ -123,6 +179,8 @@ router.post('/addblog',function(req,res,next) {
         });
 
 });
+
+
 
 router.get('/ping', function(req, res){
     res.status(200).send("pong!");

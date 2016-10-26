@@ -72,7 +72,7 @@
                     <% for(var i = 0; i < blogs.length; i++ ) { %>
 
                         <li>
-                            <a href="#"><%= blogs[i].title %></a>
+                            <a href="#" name="blogs[i]._id" class="blogTitle"><%= blogs[i].title %></a>
                             <span class="zan">赞 <%= blogs[i].recommend %></span>
                                 
                         </li>  
@@ -128,10 +128,10 @@
                                     <h3>我的博客</h3>
                                     <ul class="unstyled">
                                         <% for(var i = 0; i < blog.length; i++ ) { %>
+                                        
                                         <li>
                                             <div class="li">
-
-                                            <a href="#"><%= blog[i].title %></a></br>
+                                            <a href="/blog/<%- blog[i]._id %>" class="blogTitle"><%= blog[i].title %></a></br>
                                             <span>我发布于<strong><%= blog[i].time.getFullYear() %>/<%= blog[i].time.getMonth()+1 %>/<%= blog[i].time.getDate() %></strong><a href="#">赞</a> <%= blog[i].recommend %></span>
                                             </div>
                                         </li>  
