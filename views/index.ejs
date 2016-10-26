@@ -72,7 +72,7 @@
                     <% for(var i = 0; i < blogs.length; i++ ) { %>
 
                         <li>
-                            <a href="#" name="blogs[i]._id" class="blogTitle"><%= blogs[i].title %></a>
+                            <a href="/blog/<%- blogs[i]._id %>" class="blogTitle"><%= blogs[i].title %></a>
                             <span class="zan">赞 <%= blogs[i].recommend %></span>
                                 
                         </li>  

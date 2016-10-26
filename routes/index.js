@@ -45,34 +45,34 @@ router.get('/blog/:blogId',function(req,res,next) {
             return next(err);
 
         }
-    });   
+    });    
 
-    Blog.findById(req.params.blogId).exec((err,blg) => {
-        console.log('---查看博客---------------------------------');   
+    Blog.findById(req.params.blogId).populate('author').exec((err,blog) =>{
+        console.log('---查看博客---------------------------------');
         if (err) {
             console.log(err);
             return next(err);
         } else {
-            
-            console.log(blg.author);
-            User.findById(blg.author).exec((err,blog_user) => {
+            Comment.find({blog:req.params.blogId}).exec((err,comments) =>{
                 if (err) {
                     console.log(err);
+                } else if(comments.length == 0) {
+                    res.render('blog', { user : req.user,title:'Show blog',blog :blog,comments });
                 } else {
                     Comment.find({blog:req.params.blogId}).populate('author').exec((err,comments) =>{
                         if (err) {
                             console.log(err);                 
                         } else {
                             console.log("+++++++++",comments[0].author.username);
-                            res.render('blog', { user : req.user,title:'Show blog',blog :blg,blog_user:blog_user,comments:comments });
+                            res.render('blog', { user : req.user,title:'Show blog',blog :blog,comments:comments });
 
                         }
-                    });
+                    });                     
                 }
             });
-            
+          
         }
-    });   
+    });
 });
 
 router.post('/comment/:blogId',function(req,res,next) {

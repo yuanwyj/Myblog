@@ -96,6 +96,7 @@ body {
 }
 .list p {
 	padding-left: 60px;
+	padding-right: 36px;
 }
 .comments {
     margin-left: 30px;
@@ -111,6 +112,27 @@ body {
 .comment-time {
 	margin-left: 651px;
 }
+#zan {
+    height: 60px;
+    position: absolute;
+    bottom: 50px;
+    overflow: hidden;
+    width: 60px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+	background-color: #fff;
+	margin-left: 450px;
+}
+
+#zan img {
+	width: 40px;
+	height: 40px;
+	margin: 10px;
+}
+#zan:hover {
+	background-color: #DEDEDE
+}
+
 footer {
 	text-align:  center;
 }

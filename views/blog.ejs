@@ -32,11 +32,12 @@
         <div id="blog-content">
             <div id="blog-info">
                 <h3><%= blog.title %></h3>
-                <p class="muted"><a href="#"><%= blog_user.username %></a>发布于<%= blog.time.getFullYear() %>/<%= blog.time.getMonth()+1 %>/<%= blog.time.getDate() %></p>               
+                <p class="muted"><a href="#"><%= blog.author.username %></a>发布于<%= blog.time.getFullYear() %>/<%= blog.time.getMonth()+1 %>/<%= blog.time.getDate() %></p>               
             </div>
             <div id="content">
 
                 <p class="lead"><%= blog.content %></p>
+                <div id="zan"><a href="#"><img src="/images/1183422.png"></a></div>
             </div>
         </div>
         <!-- List of comments. -->
@@ -46,6 +47,7 @@
                 <textarea class="form-control" rows="3" name="comment"></textarea></br>
                 <button type="submit" class="btn">发布</button>
             </form>
+            <% if(comments) {%>
             <div class="list">
                 <ul class="unstyled">                   
                     <% for(var i = 0; i < comments.length; i++ ) { %>
@@ -58,12 +60,13 @@
                     <% } %>                                   
                 </ul>               
             </div>
+            <% } %>
         </div>
     </div>
     <footer>
         <p><small>&copy;Copyring All About Gaudi</small></p>
     </footer> 
         <script src="/javascripts/jquery.min.js" type="text/javascript"></script>
-        <script src="/javascripts/index.js" ></script>        
+        <script src="/javascripts/blog.js" ></script>        
     </body>
 </html>
