@@ -119,7 +119,6 @@ body {
     overflow: hidden;
     width: 60px;
     border-radius: 50%;
-    border: 1px solid #fff;
 	background-color: #fff;
 	margin-left: 450px;
 }
@@ -130,7 +129,7 @@ body {
 	margin: 10px;
 }
 #zan:hover {
-	background-color: #DEDEDE
+	background-color: #DEDEDE;
 }
 
 footer {

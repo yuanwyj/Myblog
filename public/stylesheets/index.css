@@ -221,3 +221,31 @@
             margin: 0;
             padding-left: 10px;
         }
+
+        .searchInfo {
+            width: 110px;
+            margin-left: 10px;
+            margin-top: 30px;
+        }
+        .searchblog {
+            margin-top: 17px;
+        }
+        .infosearch {
+            width: 180px;
+        }
+        #errmessage {
+            width: 166px;
+            margin-left: 1px;
+        }
+        .blogresult {
+            background-color: rgba(98, 196, 98, 0.23);
+            padding: 20px;
+        }
+        .blogresult li {
+            height: 36px;
+            border-bottom: 1px solid #fff;
+            line-height: 32px;
+        }
+        .blogresult li a {
+            margin-left: 18px;
+        }

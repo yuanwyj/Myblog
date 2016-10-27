@@ -179,8 +179,42 @@ router.post('/addblog',function(req,res,next) {
         });
 
 });
+router.post('/zanblog/:blogId',function(req,res,next) {
+    Blog.findById(req.params.blogId).exec((err,blog) => {
+        if (err) {
+            console.log(err);
+        } else {
+            blog.recommend + 1;
+        }
+    });
+    // Model.update({‘age’:22}, {’$inc’:{‘age’:1} }  );
+    Blog.update({'_id':req.params.blogId},{'$inc':{'recommend':1}},function(err,blog) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("点赞成功");
+        }
+    });
+});
 
-
+router.post('/search/:blogInfo',function(req,res,next) {
+    // 模糊查询blog
+    var re = new RegExp(req.params.blogInfo, 'i');
+    Blog.find().or([{ 'title': { $regex: re }}]).sort('-recommend').exec(function(err, blogs) {
+        if (err) {
+            console.log(err);
+        }
+        res.json(blogs);
+        console.log(blogs);
+    });
+    // Blog.find({ 'title': /req.params.blogId/}).exec((err,blogs) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     console.log(blogs);
+    //     res.json(blogs);
+    // });
+});
 
 router.get('/ping', function(req, res){
     res.status(200).send("pong!");
