@@ -12,14 +12,14 @@
             <div class="user-header">
                 <p>
                     <a href="/login">登陆</a>
-                    <a href="/register">注册</a>
+                    <a href="/register" id="reg">注册</a>
                 </p>               
             </div>
             <% } else { %>
             <div class="user-header">
                 <p>
                     <a href="#"><%= user.username %></a>
-                    <a href="/logout">安全退出</a>
+                    <a href="/logout" id="logout">安全退出</a>
                 </p>
             </div>
             <% } %>
@@ -45,7 +45,7 @@
             <form class="comment" action="/comment/<%- blog._id %>" method="post">
                 <label class="muted">说点什么吧~~</label>
                 <textarea class="form-control" rows="3" name="comment"></textarea></br>
-                <button type="submit" class="btn">发布</button>
+                <button id="btncomment" type="submit" class="btn">发布</button>
             </form>
             <% if(comments) {%>
             <div class="list">
@@ -55,7 +55,7 @@
                     <li>
                         <a href="#"><%= comments[i].author.username %>:</a><br>
                         <p><span class="comments"><%= comments[i].content %></span></p>
-                        <span class="comment-time">发布于 <%= comments[i].time.getFullYear() %>/<%= comments[i].time.getMonth()+1 %>/<%= comments[i].time.getDate() %></span><a href="#">赞</a><span><%= comments.recommend %></span>    
+                        <span class="comment-time">发布于 <%= comments[i].time.getFullYear() %>/<%= comments[i].time.getMonth()+1 %>/<%= comments[i].time.getDate() %></span><a id="commendzan" name="<%- comments[i]._id %>">赞</a><span id="times"><%= comments[i].recommend %></span>    
                     </li>  
                     <% } %>                                   
                 </ul>               

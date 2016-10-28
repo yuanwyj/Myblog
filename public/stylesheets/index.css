@@ -45,15 +45,12 @@
     border: 1px solid rgba(222, 222, 222, 0.52);
     background-color: #FFF;
     line-height: 39px;
+    height: auto;
 }   
         .pop-blog ul li a {
             margin-left: 18px;
         }
-        .pop-blog ul li p {
-            display: inline;
-            float: right;
-            margin-right: 5px;
-        }
+        
         .span9 .span9 {
             height: auto;
             background-color: aliceblue;
@@ -81,7 +78,8 @@
             font-size: 12px;
         }
         .blog p {
-           
+            display: inherit;
+            margin-left: 18px;
         }
         .blog ul li {
             height: 70px;
@@ -90,7 +88,8 @@
             border-bottom: 1px solid #ccc;
         }
         .blog ul span {
-            margin-left: 10px;
+            margin-left: 20px;
+            margin-top: 5px;
             font-size: 12px;
         }
         .pop-blog ul li span {
@@ -98,6 +97,10 @@
             margin-left: 10px;
             float: right;
             margin-right: 12px;
+        }
+        .pop-blog ul li p {
+            display: inline;
+            margin-right: 5px;
         }
         .li {
             padding-top: 15px;
@@ -245,6 +248,7 @@
             height: 36px;
             border-bottom: 1px solid #fff;
             line-height: 32px;
+            height: auto;
         }
         .blogresult li a {
             margin-left: 18px;

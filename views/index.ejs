@@ -14,7 +14,7 @@
             <div class="user-header">
                 <p>
                     <a href="/login">登陆</a>
-                    <a href="/register">注册</a>
+                    <a href="/register" id="reg">注册</a>
                 </p>               
             </div>
             <% } else { %>
@@ -73,7 +73,7 @@
 
                         <li>
                             <a href="/blog/<%- blogs[i]._id %>" class="blogTitle"><%= blogs[i].title %></a>
-                            <span class="zan">赞 <%= blogs[i].recommend %></span>
+                            <p class="muted">赞 <%= blogs[i].recommend %></p>
                                 
                         </li>  
                     <% } %>                         
@@ -90,20 +90,28 @@
                         <div class="span9">
                             <div class="top-nav">
                                 <ul class="nav nav-pills">
-                                    <li class="disabled"><a href="/blog">首页</a></li>
+                                    <li class="disabled"><a href="#">首页</a></li>
                                     <li class="disabled"><a href="#">个人主页</a></li>
                                     <li class="disabled"><a href="#" id="issue-blog">发布博客</a></li>
                                     <li class="disabled"><a href="#"></a></li>
                                 </ul>
                             </div>
-
+                            <div class="imgbos">
+                               
+                            </div>
                         </div>
                         <div class="span3">
                             <!-- Here to search blog -->
-                            <form action="" method="post" class="form-search">
-                                <input type="text" class="input-medium" placeholder="find blog...">
-                                <button type="submit" class="btn">Search</button>
-                            </form>                                                                
+                            <div class="right-top">
+                                <h3>Search blog</h3>
+                            </div>
+                            <div class="infosearch">                           
+                            </div>
+                            <input type="text" name="blogInfo" class="input-medium searchInfo" placeholder="find blog..." autocomplete="off">
+                            <button id="searchblog" type="submit" class="btn searchblog">Search</button>
+                            <ul id="blogresult" class="unstyled blogresult">
+                               
+                            </ul>                                                              
                         </div>
                     </div>
 
@@ -132,7 +140,7 @@
                                         <li>
                                             <div class="li">
                                             <a href="/blog/<%- blog[i]._id %>" class="blogTitle"><%= blog[i].title %></a></br>
-                                            <span>我发布于<strong><%= blog[i].time.getFullYear() %>/<%= blog[i].time.getMonth()+1 %>/<%= blog[i].time.getDate() %></strong><a href="#">赞</a> <%= blog[i].recommend %></span>
+                                            <span>我发布于<strong><%= blog[i].time.getFullYear() %>/<%= blog[i].time.getMonth()+1 %>/<%= blog[i].time.getDate() %></strong>  <p class="muted">赞<%= blog[i].recommend %></p></span>
                                             </div>
                                         </li>  
                                         <% } %>                                      
@@ -141,18 +149,16 @@
                                 </div>
                             </div>
                             <div class="span3">
+                            <!-- Search blog model -->
                                 <div class="right-top">
                                     <h3>Search blog</h3>
                                 </div>
                                 <div class="infosearch">                           
                                 </div>
-                                <input type="text" name="blogInfo" class="input-medium searchInfo" placeholder="find blog...">
+                                <input type="text" name="blogInfo" class="input-medium searchInfo" placeholder="find blog..." autocomplete="off">
                                 <button id="searchblog" type="submit" class="btn searchblog">Search</button>
                                 <ul id="blogresult" class="unstyled blogresult">
-                                    <li><a href="">nodejs learning</a></li>
-                                    <li><a href="">nodejs learning</a></li>
-                                    <li><a href="">nodejs learning</a></li>
-                                    <li><a href="">nodejs learning</a></li>
+                               
                                 </ul>
                             </div>
                         </div>
