@@ -19,7 +19,7 @@
             </div>
             <% } else { %>
             <div class="user-header">
-                <p>
+                <p> 
                     <a href="#"><%= user.username %></a>
                     <a href="/logout">安全退出</a>
                 </p>
@@ -62,6 +62,8 @@
             </form>
         </div>
     </div>
+
+    <!-- 热门博客模块 -->
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span3">
@@ -116,6 +118,31 @@
                     </div>
 
                 <% } else {%>
+                    <!-- 私人空间登陆模块 -->
+                    <div id="hide-layer" class="hide-layer" style="display: none;">
+                        <div class="mask"></div>
+                        <% if( user.keyt ) { %>
+                            <div class="keyt">
+                                <form method="post" action="/keyt">
+                                    <label>请输入密码</label>
+                                    <input type="password" name="keyt">
+                                    <button type="submit">确认</button>
+                                </form>
+                            </div>
+                        <%} else { %>
+                            <div class="keyt">
+                                <form method="post" action="/setkeyt">
+                                    <label>请设置密码</label>
+                                    <input type="password" name="setkeyt">
+                                    <button type="submit">确认</button>
+                                </form>
+                            </div>
+
+
+                        <% }%>
+                    </div>
+
+                    <!-- 已登陆用户 -->
                     <div class="my-blog container-fulid">
                         <div class="row-fluid">
                             <div class="span9">
@@ -123,13 +150,31 @@
                                     <ul class="nav nav-pills">
 
                                         <li class="disabled"><a href="/blog">首页</a></li>
-                                        <li class="disabled"><a href="#">个人主页</a></li>
+                                        <li id="private-room" class="disabled"><a href="#">私人空间</a></li>
                                         <li class="disabled"><a href="#" id="issue-blog">发布博客</a></li>
                                         <li class="disabled"><a href="#"></a></li>
 
                                     </ul>
                                 </div>
-                               
+<!--                                 <div class="hide-layer">
+                                    <% if(user.keyt) { %>
+                                        <div class="keyt">
+                                            <form>
+                                                <label>请设置密码</label>
+                                                <input type="password" name="keyt">
+                                                <button type="submit">确认</button>
+                                            </form>
+                                        </div>
+                                    <%} else { %>
+                                        <div class="keyt">
+                                            <form method="post" action="/setket">
+                                                <label>请输入密码</label>
+                                                <input type="password" name="setkeyt">
+                                                <button type="submit">确认</button>
+                                            </form>
+                                        </div>
+                                    <% }%>
+                                </div> -->
 
                                 <div class="blog">
 

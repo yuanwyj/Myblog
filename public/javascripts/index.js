@@ -150,4 +150,8 @@ $(function() {
 
 			}
 		});
+
+        $("#private-room").on('click',function() {
+            $("#hide-layer").toggle();
+        });
 });

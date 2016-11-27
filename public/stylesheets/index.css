@@ -253,3 +253,32 @@
         .blogresult li a {
             margin-left: 18px;
         }
+        .hide-layer {
+
+/*            width: 400px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -290px;
+            margin-left: -420px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            box-shadow: 0 0 80px 0 rgba(0,0,0,.3);
+            background-color: #ffffff;
+            z-index: 99;*/
+        }
+        .keyt {
+            width: 400px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -148px;
+            margin-left: -200px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            box-shadow: 0 0 80px 0 rgba(0,0,0,.3);
+            background-color: #ffffff;
+            z-index: 99;            
+        }

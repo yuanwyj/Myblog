@@ -4,7 +4,120 @@ var User = require('../models/user');
 var Comment = require('../models/comment');
 var Blog = require('../models/blog')
 var router = express.Router();
+var fs = require('fs');
+var path = require('path');
+var crypto = require('crypto');
 
+router.post('/setkeyt',function(req,res,next) {
+
+    var setkeyt = req.body['setkeyt'];
+    var sha512 = crypto.createHash('sha512');    
+    setkeyt = sha512.update(setkeyt).digest('hex');
+
+    User.update({'_id':req.user._id},{'keyt':setkeyt},function(err,user) {
+        if (err) {
+            console.log(err);
+        } else {
+            req.session.save(function (err) {
+                if (err) {
+                    return next(err);
+
+                }
+            });   
+                     
+            console.log("设置密码成功.");
+
+            // 显示服务器文件 
+            // 文件目录
+            var filePath = path.join(__dirname, '../');
+            fs.readdir(filePath, function(err, results){
+              if(err) throw err;
+              if(results.length>0) {
+                var files = [];
+                results.forEach(function(file){
+                  if(fs.statSync(path.join(filePath, file)).isFile()){
+                    files.push(file);
+                  }
+                })
+                res.render('fires', {files:files});
+              } else {
+                res.end('当前目录下没有文件');
+              }
+            });
+        }
+    });    
+
+});
+
+router.post('/keyt',function(req,res,next) {
+    var keyt = req.body['keyt'];
+    var sha512 = crypto.createHash('sha512');    
+    keyt = sha512.update(keyt).digest('hex');
+
+    User.findById(req.user._id).exec((err,user) =>{
+        if (err) {
+            console.log(err);
+        } else {
+            if (user.keyt == keyt) {
+                console.log("密码正确，进入私人空间");
+             // 显示服务器文件 
+            // 文件目录
+                var filePath = path.join(__dirname, '../');
+                fs.readdir(filePath, function(err, results){
+                  if(err) throw err;
+                  if(results.length>0) {
+                    var files = [];
+                    results.forEach(function(file){
+                      if(fs.statSync(path.join(filePath, file)).isFile()){
+                        files.push(file);
+                      }
+                    })
+                    res.render('fires', {files:files});
+                  } else {
+                    res.end('当前目录下没有文件');
+                  }
+                });               
+            } else {
+                res.render('/index')
+            }
+        }
+    });
+});
+// router.get('/fires', function(req, res, next) {
+//   // 显示服务器文件 
+//   // 文件目录
+//   var filePath = path.join(__dirname, '../');
+//   fs.readdir(filePath, function(err, results){
+//     if(err) throw err;
+//     if(results.length>0) {
+//       var files = [];
+//       results.forEach(function(file){
+//         if(fs.statSync(path.join(filePath, file)).isFile()){
+//           files.push(file);
+//         }
+//       })
+//       res.render('fires', {files:files});
+//     } else {
+//       res.end('当前目录下没有文件');
+//     }
+//   });
+// });
+router.get('/file/:fileName', function(req, res, next) {
+  // 实现文件下载 
+  var fileName = req.params.fileName;
+  var filePath = path.join(__dirname, '../',fileName);
+  var stats = fs.statSync(filePath); 
+  if(stats.isFile()){
+    res.set({
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': 'attachment; filename='+fileName,
+      'Content-Length': stats.size
+    });
+    fs.createReadStream(filePath).pipe(res);
+  } else {
+    res.end(404);
+  }
+});
 
 router.get('/', function (req, res) {
     // res.render('index', { user : req.user,title:'My blog' });
@@ -215,5 +328,4 @@ router.post('/commendzan/:commendId',function(req,res,next) {
 router.get('/ping', function(req, res){
     res.status(200).send("pong!");
 });
-
 module.exports = router;
