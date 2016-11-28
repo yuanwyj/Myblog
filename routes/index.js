@@ -7,6 +7,7 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 var crypto = require('crypto');
+var multipart = require('connect-multiparty');
 
 router.post('/setkeyt',function(req,res,next) {
 
@@ -29,7 +30,7 @@ router.post('/setkeyt',function(req,res,next) {
 
             // 显示服务器文件 
             // 文件目录
-            var filePath = path.join(__dirname, '../');
+            var filePath = path.join(__dirname, '../public/upload');
             fs.readdir(filePath, function(err, results){
               if(err) throw err;
               if(results.length>0) {
@@ -62,7 +63,7 @@ router.post('/keyt',function(req,res,next) {
                 console.log("密码正确，进入私人空间");
              // 显示服务器文件 
             // 文件目录
-                var filePath = path.join(__dirname, '../');
+                var filePath = path.join(__dirname, '../public/upload');
                 fs.readdir(filePath, function(err, results){
                   if(err) throw err;
                   if(results.length>0) {
@@ -78,34 +79,16 @@ router.post('/keyt',function(req,res,next) {
                   }
                 });               
             } else {
-                res.render('/index')
+                console.log("密码错误");
+                res.redirect('/');
             }
         }
     });
 });
-// router.get('/fires', function(req, res, next) {
-//   // 显示服务器文件 
-//   // 文件目录
-//   var filePath = path.join(__dirname, '../');
-//   fs.readdir(filePath, function(err, results){
-//     if(err) throw err;
-//     if(results.length>0) {
-//       var files = [];
-//       results.forEach(function(file){
-//         if(fs.statSync(path.join(filePath, file)).isFile()){
-//           files.push(file);
-//         }
-//       })
-//       res.render('fires', {files:files});
-//     } else {
-//       res.end('当前目录下没有文件');
-//     }
-//   });
-// });
 router.get('/file/:fileName', function(req, res, next) {
   // 实现文件下载 
   var fileName = req.params.fileName;
-  var filePath = path.join(__dirname, '../',fileName);
+  var filePath = path.join(__dirname, '../public/upload/',fileName);
   var stats = fs.statSync(filePath); 
   if(stats.isFile()){
     res.set({
@@ -145,7 +128,7 @@ router.get('/', function (req, res) {
             if (err) {
                 console.log(err);
             } else {
-                res.render('index', { user : req.user,title:'My blog', blogs:docs });
+                res.render('index', { user : req.user,title:'My blog', blogs:docs});
             }
         });     
     }
@@ -323,6 +306,37 @@ router.post('/commendzan/:commendId',function(req,res,next) {
             console.log("点赞成功");
         }
     });
+});
+
+
+router.post('/upload', multipart(), function(req, res,next){
+    var cipher = crypto.createCipher('aes192', new Buffer('my password'));
+
+    //get filename
+    var filename = req.files.files.originalFilename || path.basename(req.files.files.ws.path);
+    //copy file to a public directory
+    // var targetPath = path.dirname(__filename) + '/upload/' + filename;
+
+    var targetPath = path.join(__dirname,'../' + '/public/upload/' + filename);
+    //copy file
+    var s = fs.createReadStream(req.files.files.ws.path);
+    s.on('data',function(d){
+        cipher.update(d);
+    });
+    s.on('end',function() {
+        var d = cipher.final().toString('hex');
+        fs.writeFile(targetPath,d,function(err,data) {
+            if (err) {
+                console.log("文件写入数据发生错误：" + err);
+            } else {
+                console.log("加密数据: " + data);
+            }      
+        });     
+    });
+    // s.pipe(fs.createWriteStream(targetPath));
+    // fs.createReadStream(req.files.files.ws.path).pipe(fs.createWriteStream(targetPath));
+    //return file url
+    res.json({code: 200, msg: {url: '../upload/' + filename}});
 });
 
 router.get('/ping', function(req, res){

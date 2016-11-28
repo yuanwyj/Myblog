@@ -151,6 +151,42 @@ $(function() {
 			}
 		});
 
+        // //验证私人空间进入密码
+        // $("#validate").on('click',function() {
+        //     var keyt = $("#keyt");
+        //     var keytval = $.trim(keyt.val());
+
+        //     errmessage = '<div id="errmessage" class="alert">{0}</div>'; 
+
+        //     if (keytval.length == 0 ) {
+        //         $(".keyt").prepend(errmessage.format('搜索内容不能为空')); 
+        //         return false;                
+        //     } else {
+        //         $.ajax({
+        //             url: currentURL + "/keyt/" + keytval,
+        //             type: 'POST', 
+        //             dataType: 'json',  
+        //             timeout: 1000,  
+        //             cache: false,  
+        //             beforeSend: LoadFunction, //加载执行方法    
+        //             error: erryFunction,  //错误执行方法    
+        //             success: succFunction //成功执行方法                       
+        //         });
+        //         function LoadFunction() {  
+        //             $("#list").html('加载中...');  
+        //         }  
+        //         function erryFunction() {  
+        //             alert("error");  
+        //         }  
+        //         function succFunction(message) {  
+        //             if (message.error.length > 0) {
+        //                 $(".keyt").prepend(errmessage.format(error));  
+        //             }
+        //         }                 
+        //     }
+
+        // });
+
         $("#private-room").on('click',function() {
             $("#hide-layer").toggle();
         });
